@@ -7,13 +7,13 @@ class TestStateMachine(unittest.TestCase):
     def setUp(self):
         pass
 
-    # @patch(__name__ +'.StateMachine')
+    @patch(__name__ +'.StateMachine')
     def test_init(self, *newargs, **newkeywargs):
-        with patch(__name__ + '.StateMachine') as Statey:
-            print(Statey)
-            expected_calls = [call.sendSignal("ENTRY", None)]
-            new_state_machine = StateMachine("running")
-            Statey.return_value.assert_has_calls(expected_calls)
+        # with patch(__name__ + '.StateMachine') as Statey:
+            # print(Statey)
+        expected_calls = [call.sendSignal("ENTRY", None)]
+        new_state_machine = StateMachine("running")
+        new_state_machine.return_value.assert_has_calls(expected_calls)
 
     def test_transition(self):
         new_state_machine = StateMachine("running")
