@@ -23,3 +23,32 @@ class fsm:
         self.current(self, SIGNAL_EXIT, None)
         self.current = target
         self.current(self, SIGNAL_ENTRY, None)
+
+
+from adafruit_circuitplayground import cp
+import time
+
+# Define the possible states
+def led_off_state(fsm: fsm, signal, data):
+    if signal == SIGNAL_ENTRY:
+        print("i am in the off state")
+        cp.red_led = False
+    elif signal == SIGNAL_USER_START:
+        fsm.transition(led_on_state)
+
+def led_on_state(fsm: fsm, signal, data):
+    if signal == SIGNAL_ENTRY:
+        print("i am in the on state")
+        cp.red_led = True
+    elif signal == SIGNAL_USER_START:
+        fsm.transition(led_off_state)
+
+# Create the FSM and initialize it with the initial state
+fsm = fsm(current=led_off_state)
+fsm.init(led_off_state)
+
+# Loop forever
+while True:
+    # Send the user start signal to toggle the LED
+    fsm.send_signal(SIGNAL_USER_START, None)
+    time.sleep(1.5)
