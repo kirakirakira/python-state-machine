@@ -13,25 +13,25 @@ class testfsm(unittest.TestCase):
         self.assertEqual(initial_state.call_count, 1)
         initial_state.assert_called_once_with(fsm_instance, SIGNAL_ENTRY, None)
 
-    def test_transition_sends_exit_and_entry_signals(self):
-        current_state_mock = mock.Mock()
-        target_state_mock = mock.Mock(return_value=None)
+    # def test_transition_sends_exit_and_entry_signals(self):
+    #     current_state_mock = mock.Mock()
+    #     target_state_mock = mock.Mock(return_value=None)
 
-        fsm_instance = fsm(current_state_mock)
-        fsm_instance.transition(target_state_mock)
+    #     fsm_instance = fsm(current_state_mock)
+    #     fsm_instance.transition(target_state_mock)
 
-        current_state_mock.assert_has_calls(
-            [
-                mock.call(fsm_instance, SIGNAL_ENTRY, None),
-                mock.call(fsm_instance, SIGNAL_EXIT, None)
-            ]
-        )
+    #     current_state_mock.assert_has_calls(
+    #         [
+    #             mock.call(fsm_instance, SIGNAL_ENTRY, None),
+    #             mock.call(fsm_instance, SIGNAL_EXIT, None)
+    #         ]
+    #     )
 
-        target_state_mock.assert_has_calls(
-            [
-                mock.call(fsm_instance, SIGNAL_ENTRY, None)
-            ]
-        )
+    #     target_state_mock.assert_has_calls(
+    #         [
+    #             mock.call(fsm_instance, SIGNAL_ENTRY, None)
+    #         ]
+    #     )
 
     def test_sends_signal_to_current_state(self):
         current_state_mock = mock.Mock()

@@ -14,7 +14,7 @@ class fsm:
 
     # Transitions the FSM to the target state. Sends exit to the current state, changes
     # state, then sends entry to the target state.
-    def transition(self, target):
+    def transition(self, target, signal):
         self.current(self, SIGNAL_EXIT, None)
         self.current = target
         self.current(self, SIGNAL_ENTRY, None)
