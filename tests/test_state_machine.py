@@ -33,5 +33,27 @@ class testfsm(unittest.TestCase):
             ]
         )
 
+    def test_sends_signal_to_current_state(self):
+        current_state_mock = mock.Mock()
+
+        def on_signal(fsm, signal, data):
+            if signal == SIGNAL_USER_START:
+                print("woohoo", data)
+
+        current_state_mock.on_signal = on_signal
+
+        fsm_instance = fsm(current_state_mock)
+        fsm_instance.send_signal(SIGNAL_USER_START, "some data")
+
+        result = current_state_mock.on_signal(fsm_instance, SIGNAL_USER_START, "some data")
+
+        current_state_mock.assert_has_calls(
+            [
+                mock.call(fsm_instance, SIGNAL_ENTRY, None),
+                mock.call(fsm_instance, SIGNAL_USER_START, "some data")
+            ]
+        )
+
+
 if __name__ == '__main__':
     unittest.main()

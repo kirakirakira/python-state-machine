@@ -8,11 +8,6 @@ class fsm:
         self.current = initial
         self.current(self, SIGNAL_ENTRY, None)
 
-    # # Initializes an FSM with the specified initial state. Sends the entry signal to the
-    # # initial state.
-    # def init(self, initial):
-    #     self.current = initial
-
     # Sends a signal and optional signal data to the current state.
     def send_signal(self, signal, data):
         self.current(self, signal, data)
